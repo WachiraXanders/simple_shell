@@ -1,3 +1,4 @@
+#include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -22,7 +23,7 @@ void executeCommand(char *input)
 	if (child_pid == 0)
 	{
 		execlp(input, input, (char *)NULL);
-		perror(input);
+		perror("shell");
 		exit(EXIT_FAILURE);
 	}
 	else
@@ -58,6 +59,13 @@ int main(void)
 				printf("\n");
 				break;
 			}
+			perror("getline");
+			exit(EXIT_FAILURE);
+		}
+		if (strcmp(input, "exit\n") == 0)
+		{
+			printf("\n");
+			break;
 		}
 
 		if (input[len - 1] == '\n')
