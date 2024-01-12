@@ -22,9 +22,21 @@ void executeCommand(char *input)
 
 	if (child_pid == 0)
 	{
-		execlp(input, input, (char *)NULL);
-		perror("shell");
-		exit(EXIT_FAILURE);
+	  char *args[20];
+
+	  char *token = strtok(input, " ");
+	  int i = 0;
+
+	  while (token != NULL)
+	    {
+	      args[i++] = token;
+	      token = strtok(NULL, " ");
+	    }
+	  args[i] = NULL;
+	  execvp(args[0], args);
+
+	  perror("shell");
+	  exit(EXIT_FAILURE);
 	}
 	else
 	{
